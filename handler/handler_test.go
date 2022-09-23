@@ -13,8 +13,6 @@ import (
 	"github.com/tmvrus/golang-testing/handler"
 )
 
-//go:generate mockgen -destination=./mock/storage.go -package=mock -source=../storage/storage.go
-
 func Test_Handler(t *testing.T) {
 	t.Parallel()
 
