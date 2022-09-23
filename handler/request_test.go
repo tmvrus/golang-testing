@@ -11,6 +11,8 @@ func TestMain(m *testing.M) {
 }
 
 func Test_Validation(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name string
 		in   request
@@ -42,19 +44,29 @@ func Test_Validation(t *testing.T) {
 			err: true,
 		},
 	}
-
+	// go test -coverprofile=coverage.out
+	// go tool cover -func=coverage.out
+	// go tool cover -html=coverage.out
 	for i := range tests {
 		test := tests[i]
 		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
 			err := test.in.Validate()
-			if test.err && err == nil {
-				t.Error("expected error")
-				return
-			}
-			if !test.err && err != nil {
-				t.Error("unexpected error")
-				return
-			}
+			check(t, err, test.err)
 		})
+	}
+}
+
+func check(t *testing.T, err error, flag bool) {
+	t.Helper()
+
+	if flag && err == nil {
+		t.Error("expected error")
+		return
+	}
+	if !flag && err != nil {
+		t.Error("unexpected error")
+		return
 	}
 }

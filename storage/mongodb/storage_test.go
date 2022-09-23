@@ -3,16 +3,11 @@ package mongodb_test
 import (
 	"context"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/require"
 )
 
 func Test_Storage(t *testing.T) {
-	t.Skip("skip")
-
-	time.Sleep(time.Minute * 10)
-
 	t.Parallel()
 
 	t.Run("happy path", func(t *testing.T) {

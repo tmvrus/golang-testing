@@ -79,7 +79,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}))
 		return
 	}
-	ok, err := h.auth.Authorized(ctx, token)
+	ok, err := h.auth.Authorized(ctx, map[string]string{"token": token, "user_id": req.Params.UserID})
 	if err != nil {
 		writeResponse(w, newErrResponse(req.RequestID, apiError{
 			Code:    codeFailedAuthorization,
